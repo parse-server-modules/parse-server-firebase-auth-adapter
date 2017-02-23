@@ -2,14 +2,16 @@ import * as admin from "firebase-admin";
 
 export class FirebaseAuth {
 
-    constructor() {}
-
-    validateAuthData(authData,options) {
+    constructor() {
+        let options = createOptionsFromEnvVariables();
 
         admin.initializeApp({
             credential: admin.credential.cert(require(options.credential)),
             databaseURL: options.databaseURL
-        });
+        });        
+    }
+
+    validateAuthData(authData,options) {
 
         return admin.auth().verifyIdToken(authData.access_token)
         .then(function(decodedToken){
@@ -41,15 +43,3 @@ export class FirebaseAuth {
 
 export default FirebaseAuth;
 module.exports = FirebaseAuth;
-
-// function createFirebaseAuth() {
-    // return new FirebaseAuth();
-// }
-
-// let ParseFirebaseAuth = {
-//     createFirebaseAuth
-// }
-
-// export {
-//     ParseFirebaseAuth
-// }
