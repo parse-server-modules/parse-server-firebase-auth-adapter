@@ -1,22 +1,13 @@
 import * as admin from "firebase-admin";
 
-class FirebaseAuth {
+export class FirebaseAuth {
 
-    constructor() {
-        
-        //let options = createOptionsFromEnvVariables();
-
-        // admin.initializeApp({
-        //     credential: admin.credential.cert(require(options.serviceAccountKey)),
-        //     databaseURL: options.databaseURL
-        // });
-
-    }
+    constructor() {}
 
     validateAuthData(authData,options) {
 
         admin.initializeApp({
-            credential: admin.credential.cert(require(options.serviceAccountKey)),
+            credential: admin.credential.cert(require(options.credential)),
             databaseURL: options.databaseURL
         });
 
@@ -34,7 +25,7 @@ class FirebaseAuth {
 
     createOptionsFromEnvVariables() {
         let options = {};
-        options = this.requiredOrFromEnvironment(options, 'serviceAccountKey', 'FIREBASE_SERVICE_ACCOUNT_KEY');
+        options = this.requiredOrFromEnvironment(options, 'credential', 'FIREBASE_SERVICE_ACCOUNT_KEY');
         options = this.requiredOrFromEnvironment(options, 'databaseURL', 'FIREBASE_DATABASE_URL');
         return options;
     }
@@ -48,14 +39,17 @@ class FirebaseAuth {
     }
 }
 
-function createFirebaseAuth() {
-    return new FirebaseAuth();
-}
+export default FirebaseAuth;
+module.exports = FirebaseAuth;
 
-let ParseFirebaseAuth = {
-    createFirebaseAuth
-}
+// function createFirebaseAuth() {
+    // return new FirebaseAuth();
+// }
 
-export {
-    ParseFirebaseAuth
-}
+// let ParseFirebaseAuth = {
+//     createFirebaseAuth
+// }
+
+// export {
+//     ParseFirebaseAuth
+// }
