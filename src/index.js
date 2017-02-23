@@ -3,7 +3,7 @@ import * as admin from "firebase-admin";
 export class FirebaseAuth {
 
     constructor() {
-        let options = createOptionsFromEnvVariables();
+        let options = this.createOptionsFromEnvVariables();
 
         admin.initializeApp({
             credential: admin.credential.cert(require(options.credential)),
@@ -12,7 +12,6 @@ export class FirebaseAuth {
     }
 
     validateAuthData(authData,options) {
-
         return admin.auth().verifyIdToken(authData.access_token)
         .then(function(decodedToken){
             var uid = decodedToken.uid;
