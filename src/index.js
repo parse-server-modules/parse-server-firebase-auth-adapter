@@ -1,23 +1,24 @@
 import * as admin from "firebase-admin";
 
+let options = this.createOptionsFromEnvVariables();
+
+admin.initializeApp({
+    credential: admin.credential.cert(require(options.credential)),
+    databaseURL: options.databaseURL
+});
+
 export class FirebaseAuth {
 
     constructor() {
-        let options = this.createOptionsFromEnvVariables();
-
-        admin.initializeApp({
-            credential: admin.credential.cert(require(options.credential)),
-            databaseURL: options.databaseURL
-        });        
     }
 
-    validateAuthData(authData,options) {
+    validateAuthData(authData, options) {
         return admin.auth().verifyIdToken(authData.access_token)
-        .then(function(decodedToken){
-            var uid = decodedToken.uid;
-        }).catch(function (error) {
-            throw new Parse.Error(Parse.Error.OBJECT_NOT_FOUND, 'Firebase auth is invalid for this user.');
-        });  
+            .then(function (decodedToken) {
+                var uid = decodedToken.uid;
+            }).catch(function (error) {
+                throw new Parse.Error(Parse.Error.OBJECT_NOT_FOUND, 'Firebase auth is invalid for this user.');
+            });
     }
 
     validateAppId() {
