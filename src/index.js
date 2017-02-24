@@ -16,7 +16,12 @@ export class FirebaseAuth {
     validateAuthData(authData, options) {
         return admin.auth().verifyIdToken(authData.access_token)
             .then(function (decodedToken) {
-                var uid = decodedToken.uid;
+                if (decodedToken && decodedToken.uid === authData.id) {
+                    return;                    
+                }
+
+                throw new Parse.Error(Parse.Error.OBJECT_NOT_FOUND, 'Firebase auth not found for this user.');
+
             }).catch(function (error) {
                 throw new Parse.Error(Parse.Error.OBJECT_NOT_FOUND, 'Firebase auth is invalid for this user.');
             });
