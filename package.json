@@ -1,6 +1,6 @@
 {
   "name": "parse-server-firebase-auth-adapter",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Authenticate to parse server with Firebase",
   "main": "lib/index.js",
   "scripts": {
