@@ -18,10 +18,13 @@ FIREBASE_DATABASE_URL = "https://SOME_ID.firebaseio.com"
 ```
 ### 3) Add this module when creating `ParseServer`
 ```js
+import { ParseServer } from 'parse-server'
+import firebaseAuthAdapter from 'parse-server-firebase-auth-adapter'
+...
 const parserServer = new ParserServer({
   ...
   auth: {
-    firebase: require('parse-server-firebase-auth-adapter')
+    firebase: firebaseAuthAdapter
   }
 })
 ```
