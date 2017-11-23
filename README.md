@@ -21,7 +21,7 @@ FIREBASE_DATABASE_URL = "https://SOME_ID.firebaseio.com"
 import { ParseServer } from 'parse-server'
 import firebaseAuthAdapter from 'parse-server-firebase-auth-adapter'
 ...
-const parserServer = new ParserServer({
+const parserServer = new ParseServer({
   ...
   auth: {
     firebase: firebaseAuthAdapter
